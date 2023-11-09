@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    html,
+    body,
+    #map {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="map" data-hash="on"></div>
+  <script type="text/javascript" src="https://cdn.geolonia.com/v1/embed?geolonia-api-key=YOUR-API-KEY"></script>
+  <script src="https://unpkg.com/pmtiles@2.5.0/dist/index.js"></script>
+  <script>
+    const protocol = new pmtiles.Protocol();
+    maplibregl.addProtocol("pmtiles", protocol.tile);
+
+    const map = new geolonia.Map({
+      container: 'map',
+      style: 'geolonia/gsi'
+    });
+
+    map.on('load', () => {
+      map.addSource('camp-sites', {
+        type: 'vector',
+        url: 'pmtiles://https://<sampleurl>/output.pmtiles',
+      });
+
+      // 円を表示
+      map.addLayer({
+        id: "camp-sites-point",
+        type: "circle",
+        source: "camp-sites",
+        "source-layer": "g-simplestyle-v1",
+        filter: ["all", ["==", "$type", "Point"], ["!has", "marker-symbol"]],
+        paint: {
+          "circle-radius": 10,
+          "circle-color": "#ff0000",
+          "circle-opacity": 1,
+          "circle-stroke-width": 1,
+          "circle-stroke-color": "#ffffff",
+          "circle-stroke-opacity": 1
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

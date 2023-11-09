@@ -28,31 +28,33 @@
 
     const map = new maplibregl.Map({
       container: 'map',
-      style: 'https://cdn.geolonia.com/style/geolonia/gsi/ja.json'
+      style: 'https://cdn.geolonia.com/style/geolonia/gsi/ja.json',
+      center: [135.46715, 33.63283],
+      zoom: 10
     });
 
     map.on('load', () => {
-      // map.addSource('camp-sites', {
-      //   type: 'vector',
-      //   url: 'pmtiles://https://<sampleurl>/output.pmtiles',
-      // });
+      map.addSource('camp-sites', {
+        type: 'vector',
+        url: 'pmtiles://https://naogify.github.io/pmtiles-sample/camp.pmtiles',
+      });
 
-      // // 円を表示
-      // map.addLayer({
-      //   id: "camp-sites-point",
-      //   type: "circle",
-      //   source: "camp-sites",
-      //   "source-layer": "g-simplestyle-v1",
-      //   filter: ["all", ["==", "$type", "Point"], ["!has", "marker-symbol"]],
-      //   paint: {
-      //     "circle-radius": 10,
-      //     "circle-color": "#ff0000",
-      //     "circle-opacity": 1,
-      //     "circle-stroke-width": 1,
-      //     "circle-stroke-color": "#ffffff",
-      //     "circle-stroke-opacity": 1
-      //   }
-      // });
+      // 円を表示
+      map.addLayer({
+        id: "camp-sites-point",
+        type: "circle",
+        source: "camp-sites",
+        "source-layer": "g-simplestyle-v1",
+        filter: ["all", ["==", "$type", "Point"], ["!has", "marker-symbol"]],
+        paint: {
+          "circle-radius": 10,
+          "circle-color": "#ff0000",
+          "circle-opacity": 1,
+          "circle-stroke-width": 1,
+          "circle-stroke-color": "#ffffff",
+          "circle-stroke-opacity": 1
+        }
+      });
     });
   </script>
 </body>

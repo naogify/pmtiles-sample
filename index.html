@@ -23,7 +23,7 @@
   <script src="https://unpkg.com/pmtiles@2.5.0/dist/index.js"></script>
   <script>
     const protocol = new pmtiles.Protocol();
-    maplibregl.addProtocol("pmtiles", protocol.tile);
+    geolonia.addProtocol("pmtiles", protocol.tile);
 
     const map = new geolonia.Map({
       container: 'map',
